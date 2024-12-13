@@ -1,0 +1,143 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Cars Diary Login{% endblock %}
+
+{% block css %}
+<style>
+    /* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Logo */
+.logo h1 {
+    font-size: 2.5rem;
+    color: #070bc5; 
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+/* Login Form */
+.login-form {
+    width: 100%;
+    max-width: 350px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.login-form input:focus {
+    border-color: hsl(246, 90%, 24%);
+}
+
+.login-form button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: hsl(246, 90%, 24%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-form button:hover {
+    background-color: hsl(246, 90%, 24%);
+}
+
+/* Divider */
+.divider {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.divider span {
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.divider:before, 
+.divider:after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* Signup Prompt */
+.signup-prompt {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.signup-prompt a {
+    color: hsl(246, 90%, 24%);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <div class="logo">
+        <h1>Cars Diary</h1>
+    </div>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form class="login-form" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Phone number, username, or email" name="username" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <button type="submit">Log In</button>
+    </form>
+    <div class="divider">
+        <span>OR</span>
+    </div>
+    <div class="signup-prompt">
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+    </div>
+</div>
+
+{% endblock %}
